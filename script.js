@@ -1,3 +1,5 @@
+import { API_KEY } from "./env.js";
+
 document.getElementById("searchForm").addEventListener("submit", async function(e) {
     e.preventDefault();
     const query = document.getElementById("searchInput").value.trim();
@@ -6,10 +8,8 @@ document.getElementById("searchForm").addEventListener("submit", async function(
     }
 });
 
-const apiKey = "b02f842e"
-
 async function fetchMovies(query) {
-    const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}`;
+    const url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -22,6 +22,7 @@ async function fetchMovies(query) {
         console.error("Erreur lors de la récupération des données :", error);
     }
 }
+
 
 function displayMovies(movies) {
     const MovieList = document.getElementById("movieList");
@@ -41,7 +42,7 @@ function displayMovies(movies) {
 }
 
 async function showMovieDetails(imdbID) {
-    const url = `http://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}`;
+    const url = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}`;
     try {
         const response = await fetch(url);
         const movie = await response.json();
@@ -57,3 +58,5 @@ async function showMovieDetails(imdbID) {
         console.error("Erreur lors de la récupération des détails du film :", error);
     }
 }
+
+window.showMovieDetails = showMovieDetails;
